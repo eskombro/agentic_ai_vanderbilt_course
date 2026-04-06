@@ -64,7 +64,7 @@ memory = [{"role": "user", "content": user_task}]
 messages = agent_rules + memory
 
 response = completion(
-    model="openai/gpt-4o",
+    model="openai/gpt-5-mini",
     messages=messages,
     tools=tools,
     max_tokens=1024
