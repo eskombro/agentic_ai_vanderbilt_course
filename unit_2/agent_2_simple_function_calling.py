@@ -4,6 +4,8 @@ from typing import List
 
 from litellm import completion
 
+DEFAULT_MODEL = os.getenv("OPENAI_MODEL", "openai/gpt-4o-mini")
+
 def list_files() -> List[str]:
     """List files in the current directory."""
     return os.listdir(".")
@@ -64,7 +66,7 @@ memory = [{"role": "user", "content": user_task}]
 messages = agent_rules + memory
 
 response = completion(
-    model="openai/gpt-5-mini",
+    model=DEFAULT_MODEL,
     messages=messages,
     tools=tools,
     max_tokens=1024

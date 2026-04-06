@@ -2,12 +2,14 @@ from litellm import completion
 from typing import List, Dict
 
 import os
-api_key = os.getenv('OPENAI_API_KEY')
+
+api_key = os.getenv("OPENAI_API_KEY")
+DEFAULT_MODEL = os.getenv("OPENAI_MODEL", "openai/gpt-4o-mini")
 
 def generate_response(messages: List[Dict]) -> str:
     """Call LLM to get response"""
     response = completion(
-        model="openai/gpt-5-mini",
+        model=DEFAULT_MODEL,
         messages=messages,
         max_tokens=1024
     )

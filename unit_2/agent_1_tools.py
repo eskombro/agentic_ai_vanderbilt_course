@@ -4,6 +4,8 @@ import sys
 from litellm import completion
 from typing import List, Dict
 
+DEFAULT_MODEL = os.getenv("OPENAI_MODEL", "openai/gpt-4o-mini")
+
 def extract_markdown_block(response: str, block_type: str = "json") -> str:
     """Extract code block from response"""
 
@@ -20,7 +22,7 @@ def extract_markdown_block(response: str, block_type: str = "json") -> str:
 def generate_response(messages: List[Dict]) -> str:
     """Call LLM to get a response."""
     response = completion(
-        model="openai/gpt-5-mini",
+        model=DEFAULT_MODEL,
         messages=messages,
         max_tokens=1024
     )
