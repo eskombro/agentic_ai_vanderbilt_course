@@ -108,7 +108,12 @@ while iterations < max_iterations:
         
         tool = response.choices[0].message.tool_calls[0]
         tool_name = tool.function.name
-        tool_args = json.loads(tool.function.arguments)
+        try:
+            tool_args = json.loads(tool.function.arguments)
+        except json.JSONDecodeError:
+            print(f"--------------------------------\nTOOL ARGUMENTS NOT FOUND:")
+            print(f"Tool {tool_name} arguments not found in the response.")
+            continue
 
         action = {
             "tool_name": tool_name,
