@@ -7,14 +7,14 @@ from typing import List
 goals = [
     Goal(priority=1, name="Gather Information", description="Read each python file in the path where you are being executed in the path './'. "
                                                             "You can use list_project_files action to list all the files in a directory. Then use "
-                                                            " read_project_file action to read each one of the files"
-                                                            "make sure that you also read all the files inside all of the subdirectories"),
-    Goal(priority=1, name="Write README", description="Create the content of a README file that summarizes the project"
-                                                    "You can use the content of the files you have read to create the README"
-                                                    "make sure that you write the README in the correct format and structure in markdown format"
-                                                    "Keep the readme short and concise"),
+                                                            "read_project_file action to read each one of the files. "
+                                                            "make sure that you also read all the files inside all of the subdirectories. "),
+    Goal(priority=1, name="Write README", description="When you have read all the files "
+                                                    "analyse their content to create the content of a README file that summarizes the project. "
+                                                    "make sure that you write the README in a well presented markdown format. "
+                                                    "Keep the readme short and concise. "),
     Goal(priority=1, name="Terminate", description="Call the terminate call when you have read all the files "
-                                                    "and provide the content of a README written by you in the terminate message")
+                                                    "and provide the content of your README in the terminate message")
 ]
 
 # Define the agent's language
@@ -32,7 +32,7 @@ action_registry = ActionRegistry()
 action_registry.register(Action(
     name="list_project_files",
     function=list_project_files,
-    description="Lists all files in the project.",
+    description="Lists all the files and subdirectories in the specified `path`.",
     parameters={
         "type": "object",
         "properties": {
@@ -45,7 +45,7 @@ action_registry.register(Action(
 action_registry.register(Action(
     name="read_project_file",
     function=read_project_file,
-    description="Reads a file from the project.",
+    description="Reads a file from the specified `file_name`.",
     parameters={
         "type": "object",
         "properties": {
@@ -58,7 +58,7 @@ action_registry.register(Action(
 action_registry.register(Action(
     name="terminate",
     function=lambda message: f"{message}\nTerminating...",
-    description="Terminates the session and prints the message to the user.",
+    description="Terminates the session and prints the readme content to the user in the message `message`.",
     parameters={
         "type": "object",
         "properties": {
